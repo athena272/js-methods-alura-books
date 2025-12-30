@@ -27,4 +27,9 @@ export class BookModel
             currency: "BRL",
         });
     }
+
+    applyDescont(descont)
+    {
+        return this.price - (this.price * descont);
+    }
 }
