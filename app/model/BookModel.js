@@ -28,8 +28,21 @@ export class BookModel
         });
     }
 
-    applyDescont(descont)
+    applyDiscount(descont)
     {
         return this.price - (this.price * descont);
+    }
+
+    withDiscount(discount)
+    {
+        return new BookModel({
+            title: this.title,
+            price: this.applyDiscount(discount),
+            author: this.author,
+            image: this.image,
+            alt: this.alt,
+            quantity: this.quantity,
+            category: this.category,
+        });
     }
 }
