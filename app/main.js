@@ -1,5 +1,5 @@
 import { BookModel } from "./model/BookModel.js";
-import { applyDiscount } from "./services/applyDescont.js";
+import { applyDiscount } from "./services/applyDiscount.js";
 import { renderBooks } from "./ui/renderBooks.js";
 const booksContainer = document.querySelector("#livros");
 
