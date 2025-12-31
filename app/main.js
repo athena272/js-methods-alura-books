@@ -1,5 +1,5 @@
 import { BookModel } from "./model/BookModel.js";
-import { applyDescont } from "./service/applyDescont.js";
+import { applyDiscount } from "./services/applyDescont.js";
 import { renderBooks } from "./ui/renderBooks.js";
 const booksContainer = document.querySelector("#livros");
 
@@ -10,10 +10,10 @@ async function getBooks()
     const rawBooks = await response.json();
     // Aqui você converte os objetos "crus" em instâncias da classe
     const books = rawBooks.map((data) => new BookModel(data));
-    const booksWithDescont = applyDescont(books);
+    const booksWithDescont = applyDiscount(books);
     console.log("🚀 ~ getBooks ~ booksWithDescont:", booksWithDescont);
 
-    renderBooks({ books: books, container: booksContainer });
+    renderBooks({ books: booksWithDescont, container: booksContainer });
 }
 
 getBooks();
