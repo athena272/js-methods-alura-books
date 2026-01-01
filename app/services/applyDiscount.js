@@ -1,7 +1,5 @@
-export function applyDiscount(books = [])
+export function applyDiscount(books = [], discount = 0.3)
 {
-    const descont = 0.3;
-    // const booksWithDescont = books.map(book => {...book, prince: book.applyDescont(descont)});
-    const booksWithDescont = books.map(book => book.withDiscount(descont));
-    return booksWithDescont;
+    const booksWithDiscount = books.map(book => book.withDiscount(discount));
+    return booksWithDiscount;
 }
