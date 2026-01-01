@@ -28,9 +28,9 @@ export class BookModel
         });
     }
 
-    applyDiscount(descont)
+    applyDiscount(discount)
     {
-        return this.price - (this.price * descont);
+        return this.price - (this.price * discount);
     }
 
     withDiscount(discount)
