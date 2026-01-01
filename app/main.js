@@ -1,19 +1,6 @@
-import { BookModel } from "./model/BookModel.js";
-import { applyDiscount } from "./services/applyDiscount.js";
-import { renderBooks } from "./ui/renderBooks.js";
-const booksContainer = document.querySelector("#livros");
+import { bindBooksEvents, initBooks } from "./controllers/booksController.js";
 
-async function getBooks()
-{
-    const apiEndpoint = "https://athena272.github.io/js-methods-alura-books/books.json";
-    const response = await fetch(apiEndpoint);
-    const rawBooks = await response.json();
-    // Aqui você converte os objetos "crus" em instâncias da classe
-    const books = rawBooks.map((data) => new BookModel(data));
-    const booksWithDescont = applyDiscount(books);
-    console.log("🚀 ~ getBooks ~ booksWithDescont:", booksWithDescont);
+const booksContainer = document.querySelector('#livros');
 
-    renderBooks({ books: booksWithDescont, container: booksContainer });
-}
-
-getBooks();
+await initBooks({ container: booksContainer });
+bindBooksEvents({ container: booksContainer });
