@@ -1,12 +1,22 @@
 import { BookModel } from "../model/BookModel.js";
 import { applyDiscount } from "../services/applyDiscount.js";
+import { calcTotalAvailable } from "../services/calcTotalAvailable.js";
 import { booksState } from "../state/booksState.js";
 import { renderBooks } from "../ui/renderBooks.js";
+import { renderTotal } from "../ui/renderTotal.js";
 
 const API_URL = "https://athena272.github.io/js-methods-alura-books/books.json";
 const DEFAULT_DISCOUNT = 0.3;
 
-export async function initBooks({ container })
+function renderView({ container, totalContainer })
+{
+    renderBooks({ books: booksState.visibleBooks, container });
+
+    const total = calcTotalAvailable(booksState.visibleBooks);
+    renderTotal({ total, container: totalContainer });
+}
+
+export async function initBooks({ container, totalContainer })
 {
     const response = await fetch(API_URL);
     const rawBooks = await response.json();
@@ -14,10 +24,10 @@ export async function initBooks({ container })
     booksState.allBooks = rawBooks.map(data => new BookModel(data));
     booksState.visibleBooks = applyDiscount(booksState.allBooks, DEFAULT_DISCOUNT);
 
-    renderBooks({ books: booksState.visibleBooks, container });
+    renderView({ container, totalContainer });
 }
 
-function handleAction({ event, container })
+function handleAction({ event, container, totalContainer })
 {
     const btn = event.currentTarget;
     console.log("🚀 ~ handleAction ~ btn:", btn);
@@ -36,7 +46,7 @@ function handleAction({ event, container })
             const filtered = booksState.allBooks.filter(book => book.category === category);
             booksState.visibleBooks = applyDiscount(filtered, DEFAULT_DISCOUNT);
 
-            renderBooks({ books: booksState.visibleBooks, container });
+            renderView({ container, totalContainer });
         },
 
         available()
@@ -44,7 +54,7 @@ function handleAction({ event, container })
             const available = booksState.allBooks.filter(book => book.isAvailable());
             booksState.visibleBooks = applyDiscount(available, DEFAULT_DISCOUNT);
 
-            renderBooks({ books: booksState.visibleBooks, container });
+            renderView({ container, totalContainer });
         },
 
         sort()
@@ -53,17 +63,17 @@ function handleAction({ event, container })
             if (sortKey !== "price") return;
 
             booksState.visibleBooks = [...booksState.visibleBooks].sort((a, b) => a.price - b.price);
-            renderBooks({ books: booksState.visibleBooks, container });
+            renderView({ container, totalContainer });
         }
     };
 
     actions[action]?.();
 }
 
-export function bindBooksEvents({ container })
+export function bindBooksEvents({ container, totalContainer })
 {
     document.querySelectorAll('.btn').forEach(btn =>
     {
-        btn.addEventListener('click', (event) => handleAction({ event, container }));
+        btn.addEventListener('click', (event) => handleAction({ event, container, totalContainer }));
     });
 }
