@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
-    <meta metacharset="UTF-8" />
+    <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AluraBooks</title>
@@ -25,9 +25,8 @@
         <li>
           <button
             class="btn btn-front"
-            href="#"
-            id="btnFiltrarLivrosFront"
-            value="front-end"
+            data-action="filter"
+            data-category="front-end"
           >
             LIVROS DE FRONT-END
           </button>
@@ -35,9 +34,8 @@
         <li>
           <button
             class="btn btn-back"
-            href="#"
-            id="btnFiltrarLivrosBack"
-            value="back-end"
+            data-action="filter"
+            data-category="back-end"
           >
             LIVROS DE BACK-END
           </button>
@@ -45,24 +43,23 @@
         <li>
           <button
             class="btn btn-dados"
-            href="#"
-            id="btnFiltrarLivrosDados"
-            value="dados"
+            data-action="filter"
+            data-category="data"
           >
             LIVROS DE DADOS
           </button>
         </li>
         <li>
-          <button
-            class="btn btn-disponiveis"
-            href="#"
-            id="btnLivrosDisponiveis"
-          >
+          <button class="btn btn-disponiveis" data-action="available" id="btnLivrosDisponiveis">
             LIVROS DISPONÍVEIS
           </button>
         </li>
         <li>
-          <button class="btn btn-ordenacao" href="#" id="btnOrdenarPorPreco">
+          <button
+            class="btn btn-ordenacao"
+            data-action="sort"
+            data-sort="price"
+          >
             ORDENAR POR PREÇO
           </button>
         </li>
